@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "CodeNixor"
+version = "1.0.0"
+id = "artifacts/codenixor"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21530
+
+[services.development]
+run = "pnpm --filter @workspace/codenixor run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/codenixor", "run", "build" ]
+publicDir = "artifacts/codenixor/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21530"
+BASE_PATH = "/"
